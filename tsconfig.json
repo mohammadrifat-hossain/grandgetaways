@@ -12,6 +12,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["@types/bcrypt","@prisma/client"],
+    
     "plugins": [
       {
         "name": "next"

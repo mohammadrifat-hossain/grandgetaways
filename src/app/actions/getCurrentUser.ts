@@ -29,7 +29,7 @@ const getCurrentUser = async () => {
             ...currentUser,
             createdAt: currentUser.createdAt.toISOString(),
             updatedAt: currentUser.updatedAt.toISOString(),
-            emailVarified: currentUser.emailVarified?.toISOString() || null
+            emailVerified: currentUser.emailVerified?.toISOString() || null
         }
     } catch (error: any) {
         return null

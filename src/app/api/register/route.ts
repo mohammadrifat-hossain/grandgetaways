@@ -11,7 +11,8 @@ export const POST = async (request: Request) => {
         data: {
             email,
             name,
-            hashedPassword
+            hashedPassword,
+            emailVerified: null,
         }
     })
 
