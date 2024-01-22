@@ -7,7 +7,7 @@ import {
     useForm,
 } from 'react-hook-form'
 import useRegisterModal from '@/hooks/useRegisterModal'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import axios from 'axios'
 import Modal from './Modal'
 import Heading from '../Heading'
@@ -60,6 +60,11 @@ const LoginModal = () => {
         })
     }
 
+    const toggleContent = useCallback(()=>{
+        loginModal.onClose()
+        registerModal.onOpen()
+    },[loginModal,registerModal])
+
     const bodyContent = (
         <div className='flex flex-col gap-4'>
             <Heading
@@ -88,7 +93,7 @@ const LoginModal = () => {
     )
 
     const FooterContent = (
-        <div className='flex flex-col gap-4 mt-3 '>
+        <div className='flex flex-col gap-4 mt-3'>
             <hr />
             <Button 
                 outline
@@ -103,9 +108,9 @@ const LoginModal = () => {
                 onClick={()=> signIn('github')}
             />
             <div className='text-neutral-500 text-center mt-4 font-light'>
-                <div className='flex flex-row items-center gap-2 justify-center'>
-                    <div>Already have an account?</div>
-                    <div onClick={registerModal.onClose} className=' text-neutral-800 cursor-pointer hover:underline'>Login</div>
+                <div className='flex flex-col md:flex-row items-center md:gap-2 justify-center '>
+                    <div>First time using GrandGetways?</div>
+                    <div onClick={toggleContent} className=' text-neutral-800 cursor-pointer hover:underline'>Create an account</div>
                 </div>
             </div>
         </div>

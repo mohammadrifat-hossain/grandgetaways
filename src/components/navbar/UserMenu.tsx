@@ -7,6 +7,7 @@ import useRegisterModal from '@/hooks/useRegisterModal'
 import useLoginModal from '@/hooks/useLoginModal'
 import { signOut } from 'next-auth/react'
 import { SafeUser } from '@/types'
+import useRentModal from '@/hooks/useRentModal'
 
 interface UserMenuProps {
     currentUser?: SafeUser | null
@@ -15,15 +16,26 @@ interface UserMenuProps {
 const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
     const registerModel = useRegisterModal()
     const loginModel = useLoginModal()
+    const rentModal = useRentModal()
     const [isOpen, setIsOpen] = useState(false)
 
     const toggleOpen = useCallback(()=>{
         setIsOpen(!isOpen)
     },[isOpen])
+
+    //----functions
+
+    const onRent = useCallback(()=>{
+        if(!currentUser){
+            return loginModel.onOpen()
+        }
+        //open rent modal
+        rentModal.onOpen()
+    },[currentUser,loginModel,rentModal])
     return (
         <div className='relative'>
             <div className='flex flex-row items-center gap-3'>
-                <div onClick={()=>{}} className='hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer' >
+                <div onClick={onRent} className='hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer' >
                     Grand your home
                 </div>
                 <div onClick={toggleOpen} className='p-4 md:py-2 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition'>
@@ -44,7 +56,7 @@ const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
                                         <MenuItem onClick={()=>{}} label='Favorite'/>
                                         <MenuItem onClick={()=>{}} label='Reservations'/>
                                         <MenuItem onClick={()=>{}} label='Properties'/>
-                                        <MenuItem onClick={()=>{}} label='Home'/>
+                                        <MenuItem onClick={rentModal.onOpen} label='My Home'/>
                                         <hr />
                                         <MenuItem onClick={()=> signOut()} label='Logout'/>
 
