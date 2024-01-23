@@ -29,7 +29,9 @@ export default async function RootLayout({
         <RentModal />
         <ToasterProvider />
         <Navbar currentUser={currentUser}/>
-        {children}
+        <div className="pb-20 pt-28">
+          {children}
+        </div>
       </body>
     </html>
   );
