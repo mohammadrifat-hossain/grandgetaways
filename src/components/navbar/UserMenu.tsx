@@ -8,6 +8,7 @@ import useLoginModal from '@/hooks/useLoginModal'
 import { signOut } from 'next-auth/react'
 import { SafeUser } from '@/types'
 import useRentModal from '@/hooks/useRentModal'
+import { useRouter } from 'next/navigation'
 
 interface UserMenuProps {
     currentUser?: SafeUser | null
@@ -17,6 +18,7 @@ const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
     const registerModel = useRegisterModal()
     const loginModel = useLoginModal()
     const rentModal = useRentModal()
+    const router = useRouter()
     const [isOpen, setIsOpen] = useState(false)
 
     const toggleOpen = useCallback(()=>{
@@ -52,10 +54,10 @@ const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
                             {
                                 currentUser ? (
                                     <>
-                                        <MenuItem onClick={()=>{}} label='Trips'/>
-                                        <MenuItem onClick={()=>{}} label='Favorite'/>
-                                        <MenuItem onClick={()=>{}} label='Reservations'/>
-                                        <MenuItem onClick={()=>{}} label='Properties'/>
+                                        <MenuItem onClick={()=> router.push('/trips')} label='My Trips'/>
+                                        <MenuItem onClick={()=> router.push('/favorites')} label='My Favorite'/>
+                                        <MenuItem onClick={()=> router.push('/reservations')} label='My Reservations'/>
+                                        <MenuItem onClick={()=>{}} label='My Properties'/>
                                         <MenuItem onClick={rentModal.onOpen} label='My Home'/>
                                         <hr />
                                         <MenuItem onClick={()=> signOut()} label='Logout'/>

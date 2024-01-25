@@ -1,6 +1,6 @@
-'use client'
+
 import useCountries from "@/hooks/useCountries";
-import { SafeListing, SafeReservation, SafeUser } from "@/types";
+import { ExtraListing, SafeListing, SafeReservation, SafeUser } from "@/types";
 import { Listing, Reservation } from "@prisma/client"
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
@@ -8,10 +8,11 @@ import { format } from 'date-fns'
 import Image from "next/image";
 import HeartButton from "../HeartButton";
 import Button from "../Button";
+import Link from "next/link";
 
 
 interface ListingCardProps{
-    data:SafeListing;
+    data: ExtraListing;
     reservation?: SafeReservation;
     onAction?: (id:string) => void;
     disabled?: boolean;
@@ -19,7 +20,7 @@ interface ListingCardProps{
     actionId?:string;
     currentUser?:SafeUser | null;
 }
-const ListingCard: React.FC<ListingCardProps> = ({
+const SecondListingCard: React.FC<ListingCardProps> = ({
     data,
     reservation,
     onAction,
@@ -28,7 +29,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
     actionId = "",
     currentUser
 }) => {
-    const router = useRouter()
+    // const router = useRouter()
     const { getByValue} = useCountries()
 
     const location = getByValue(data.locationValue)
@@ -59,8 +60,9 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
         return `${format(start,'PP')} - ${format(end,"PP")}`
     },[reservation])
+    
     return (
-        <div onClick={()=> router.push(`/listings/${data.id}`)} className="col-span-1 cursor-pointer group" >
+        <Link href={`/listings/${data.id}`} className="col-span-1 cursor-pointer group" >
             <div className="flex flex-col gap-2 w-full">
                 <div className="aspect-square w-full overflow-hidden relative  rounded-xl">
                     <Image alt="listing" src={data.imageSrc} className=" object-cover h-full w-full group-hover:scale-110 transition" fill/>
@@ -94,8 +96,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
                     />
                 )}
             </div>
-        </div>
+        </Link>
     )
 }
 
-export default ListingCard
+export default SecondListingCard
