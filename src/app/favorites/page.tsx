@@ -3,15 +3,17 @@ import EmptyState from "@/components/EmptyState"
 import getFavoriteListings from "../actions/getFavoriteListing"
 import getCurrentUser from "../actions/getCurrentUser"
 import FavoriteClient from "./FavoriteClient"
+import { SafeListing } from "@/types"
 
 const FavoritePage = async () => {
     const listings = await getFavoriteListings()
     const currentUser = await getCurrentUser()
 
-    const favoriteListing = listings.map(async (list) =>({
+    const favoriteListingPromises = listings.map(async (list) =>({
         ...list,
         createdAt: typeof list.createdAt
     }))
+    const favoriteListing = await Promise.all(favoriteListingPromises);
 
     if(listings.length === 0 ){
         return (
@@ -27,7 +29,7 @@ const FavoritePage = async () => {
     return (
         <ClientOnly>
             <FavoriteClient
-                listings={listings}
+                listings={favoriteListing}
                 currentUser={currentUser}
             />
         </ClientOnly>
