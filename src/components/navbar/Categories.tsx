@@ -1,5 +1,5 @@
 'use client'
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import Container from '../Container'
 import { TbBeach, TbMountain, TbPool } from 'react-icons/tb'
 import { GiBarn, GiBoatFishing, GiCactus, GiCastle, GiCaveEntrance, GiForest, GiIsland, GiWindmill } from 'react-icons/gi'
@@ -91,7 +91,11 @@ export const categories = [
 
 const Categories = () => {
     const params = useSearchParams()
-    const category = params?.get('category')
+    const [category, setCategory] = useState<string | undefined>()
+    useEffect(()=>{
+        const categoryValue = params?.get('category');
+        setCategory(categoryValue !== null ? categoryValue : undefined);
+    },[params])
     const pathname = usePathname()
 
     const isMainPage = pathname === '/'

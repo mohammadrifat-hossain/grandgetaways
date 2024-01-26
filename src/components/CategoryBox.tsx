@@ -6,7 +6,7 @@ import qs from 'query-string'
 import { Suspense } from 'react';
 
 interface CategoryBoxProps {
-    key?:string;
+    key?:string | undefined;
     label:string;
     description?:string;
     icon: IconType,
