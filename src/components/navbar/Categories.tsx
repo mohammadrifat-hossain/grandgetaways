@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { Suspense } from 'react'
 import Container from '../Container'
 import { TbBeach, TbMountain, TbPool } from 'react-icons/tb'
 import { GiBarn, GiBoatFishing, GiCactus, GiCastle, GiCaveEntrance, GiForest, GiIsland, GiWindmill } from 'react-icons/gi'
@@ -102,15 +102,17 @@ const Categories = () => {
 
     
     return (
-        <Container>
-            <div className="pt-4 flex flex-row items-center justify-between overflow-x-auto">
-                {
-                    categories?.map((item)=>(
-                        <CategoryBox key={item.label} label={item.label} icon={item.icon} description={item.description} selected={category === item.label} />
-                    ))
-                }
-            </div>
-        </Container>
+        <Suspense>
+            <Container>
+                <div className="pt-4 flex flex-row items-center justify-between overflow-x-auto">
+                    {
+                        categories?.map((item)=>(
+                            <CategoryBox key={item.label} label={item.label} icon={item.icon} description={item.description} selected={category === item.label} />
+                        ))
+                    }
+                </div>
+            </Container>
+        </Suspense>
     )
 }
 
