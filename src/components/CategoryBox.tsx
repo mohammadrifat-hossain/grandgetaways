@@ -6,14 +6,13 @@ import qs from 'query-string'
 import { Suspense } from 'react';
 
 interface CategoryBoxProps {
-    key?:string | undefined;
     label:string;
     description?:string;
     icon: IconType,
     selected?:boolean
 }
 
-const CategoryBox: React.FC<CategoryBoxProps> = ({key, label, description, icon:Icon, selected}) => {
+const CategoryBox: React.FC<CategoryBoxProps> = ({label, description, icon:Icon, selected}) => {
     const router = useRouter()
     const params = useSearchParams()
     
