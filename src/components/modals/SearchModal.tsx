@@ -156,7 +156,7 @@ const SearchModal = () => {
     }
     
     return (
-        <Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
             <Modal
                 isOpen={searchModal.isOpen}
                 onClose={searchModal.onClose}

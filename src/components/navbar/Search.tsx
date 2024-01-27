@@ -46,7 +46,7 @@ const Search = () => {
         return 'Add Guest'
     },[guestCount])
     return (
-        <Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
             <div className='border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer' onClick={searchModal.onOpen}>
                 <div className='flex flex-row items-center justify-between'>
                     <div className='text-sm font-semibold px-6'>
