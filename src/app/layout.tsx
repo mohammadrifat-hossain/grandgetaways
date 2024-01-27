@@ -8,6 +8,7 @@ import LoginModal from "@/components/modals/LoginModal";
 import getCurrentUser from "./actions/getCurrentUser";
 import RentModal from "@/components/modals/RentModal";
 import SearchModal from "@/components/modals/SearchModal";
+import { Suspense } from "react";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -22,18 +23,25 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const currentUser = await getCurrentUser()
+  const loadingSpinner = (
+    <div className="w-full flex items-center justify-center">
+    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
+    </div>
+);
   return (
     <html lang="en">
       <body className={nunito.className}>
-        <RegisterModel />
-        <LoginModal />
-        <RentModal />
-        <SearchModal/>
-        <ToasterProvider />
-        <Navbar currentUser={currentUser}/>
-        <div className="pb-20 pt-28">
-          {children}
-        </div>
+        <Suspense fallback={loadingSpinner}>
+          <RegisterModel />
+          <LoginModal />
+          <RentModal />
+          <SearchModal/>
+          <ToasterProvider />
+          <Navbar currentUser={currentUser}/>
+          <div className="pb-20 pt-28">
+            {children}
+          </div>
+        </Suspense>
       </body>
     </html>
   );
