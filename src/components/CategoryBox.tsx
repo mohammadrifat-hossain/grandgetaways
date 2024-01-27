@@ -52,5 +52,6 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({label, description, icon:Icon,
         </Suspense>
     )
 }
+export const dynamic = 'force-dynamic'
 
 export default CategoryBox

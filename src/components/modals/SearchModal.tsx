@@ -12,6 +12,7 @@ import Heading from '../Heading'
 import Calendar from '../inputs/Calendar'
 import Counter from '../inputs/Counter'
 
+
 enum STEPS {
     LOCATION = 0,
     DATE = 1,
@@ -170,5 +171,7 @@ const SearchModal = () => {
         </Suspense>
     )
 }
+
+
 
 export default SearchModal

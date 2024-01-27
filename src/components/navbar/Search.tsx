@@ -66,5 +66,6 @@ const Search = () => {
         </Suspense>
     )
 }
+export const dynamic = 'force-dynamic'
 
 export default Search

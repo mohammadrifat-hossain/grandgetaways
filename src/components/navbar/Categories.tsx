@@ -119,5 +119,6 @@ const Categories = () => {
         </Suspense>
     )
 }
+export const dynamic = 'force-dynamic'
 
 export default Categories
